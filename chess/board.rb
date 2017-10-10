@@ -28,6 +28,13 @@ class Board
     self[start_pos], self[end_pos] = self[end_pos], self[start_pos]
   end
 
+  def in_bounds?(pos)
+    row, col = pos
+    return true if row < @grid.size && col < @grid.first.size
+
+    false
+  end
+
   def checkmate?
   end
 
