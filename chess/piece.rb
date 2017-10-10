@@ -1,5 +1,10 @@
+require "singleton"
+
 class Piece
+  attr_reader :valid_moves
+
   def initialize
+    @valid_moves = []
   end
 
   def to_s
@@ -12,6 +17,8 @@ class Piece
   end
 
   def valid_moves
+    @valid_moves = [[2, 0]]
+    @valid_moves
   end
 
   private
@@ -22,7 +29,7 @@ end
 
 class NullPiece < Piece
   include Singleton
-  
+
   def initialize
   end
 
