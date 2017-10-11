@@ -43,8 +43,16 @@ class Board
   def make_starting_grid
     @grid = Array.new(8) { Array.new(8) }
 
-    @grid.each_with_index do |row, idx|
-      row.map! { |col| Piece.new unless idx.between?(2, 5) }
+    @grid.each_with_index do |row, row_idx|
+      row.map!.with_index do |col, col_idx|
+        if row_idx.between?(2, 5)
+          NullPiece.instance
+        elsif row_idx.between?(0, 1)
+          Piece.new(self, [row_idx, col_idx], :black)
+        else
+          Piece.new(self, [row_idx, col_idx], :white)
+        end
+      end
     end
 
     @grid

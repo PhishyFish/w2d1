@@ -44,8 +44,6 @@ class Cursor
     handle_key(key)
   end
 
-  private
-
   def read_char
     STDIN.echo = false # stops the console from printing return values
 
@@ -77,10 +75,10 @@ class Cursor
 
   def handle_key(key)
     case key
-    when :return || :space
+    when :return, :space
       @cursor_pos
-    when :left || :right || :up || :down
-      self.update_pos(diff)
+    when :left, :right, :up, :down
+      self.update_pos(MOVES[key])
       nil
     when :ctrl_c
       Process.exit(0)
@@ -88,6 +86,8 @@ class Cursor
   end
 
   def update_pos(diff)
+    new_pos = [cursor_pos.first + diff.first, cursor_pos.last + diff.last]
+    @cursor_pos = new_pos if @board.in_bounds?(new_pos)
     # cursor_pos => current position
     # MOVES + cursor_pos => new position
     # KEYMAP[input] = MOVES[key] => diff

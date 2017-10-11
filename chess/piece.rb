@@ -1,13 +1,20 @@
 require "singleton"
+require_relative "board.rb"
+require_relative "modules.rb"
+require_relative "display.rb"
 
 class Piece
   attr_reader :valid_moves
 
-  def initialize
+  def initialize(board, pos, color)
     @valid_moves = []
+    @board = board
+    @current_pos = pos
+    @color = color
   end
 
   def to_s
+    "P "
   end
 
   def empty?
@@ -33,12 +40,17 @@ class NullPiece < Piece
   def initialize
   end
 
+  def to_s
+    "  "
+  end
+
   def moves
   end
 end
 
 class Pawn < Piece
-  def initialize
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
@@ -63,7 +75,8 @@ class Pawn < Piece
 end
 
 class King < Piece
-  def initialize
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
@@ -76,7 +89,8 @@ class King < Piece
 end
 
 class Knight < Piece
-  def initialize
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
@@ -89,7 +103,9 @@ class Knight < Piece
 end
 
 class Bishop < Piece
-  def initialize
+  include Slideable
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
@@ -102,7 +118,9 @@ class Bishop < Piece
 end
 
 class Rook < Piece
-  def initialize
+  include Slideable
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
@@ -111,11 +129,14 @@ class Rook < Piece
   protected
 
   def move_diffs
+
   end
 end
 
 class Queen < Piece
-  def initialize
+  include Slideable
+  def initialize(board, pos)
+    super(board, pos)
   end
 
   def symbol
