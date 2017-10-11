@@ -49,11 +49,8 @@ class NullPiece < Piece
 end
 
 class Pawn < Piece
-  def initialize(board, pos)
-    super(board, pos)
-  end
-
-  def symbol
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
   def moves
@@ -75,11 +72,12 @@ class Pawn < Piece
 end
 
 class King < Piece
-  def initialize(board, pos)
-    super(board, pos)
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
-  def symbol
+  def to_s
+    "^^"
   end
 
   protected
@@ -89,11 +87,12 @@ class King < Piece
 end
 
 class Knight < Piece
-  def initialize(board, pos)
-    super(board, pos)
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
-  def symbol
+  def to_s
+    "K "
   end
 
   protected
@@ -104,11 +103,12 @@ end
 
 class Bishop < Piece
   include Slideable
-  def initialize(board, pos)
-    super(board, pos)
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
-  def symbol
+  def to_s
+    "B "
   end
 
   protected
@@ -119,11 +119,12 @@ end
 
 class Rook < Piece
   include Slideable
-  def initialize(board, pos)
-    super(board, pos)
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
-  def symbol
+  def to_s
+    "R "
   end
 
   protected
@@ -135,11 +136,12 @@ end
 
 class Queen < Piece
   include Slideable
-  def initialize(board, pos)
-    super(board, pos)
+  def initialize(board, pos, color)
+    super(board, pos, color)
   end
 
-  def symbol
+  def to_s
+    "Q "
   end
 
   protected

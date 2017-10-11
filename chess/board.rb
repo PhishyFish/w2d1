@@ -47,10 +47,30 @@ class Board
       row.map!.with_index do |col, col_idx|
         if row_idx.between?(2, 5)
           NullPiece.instance
-        elsif row_idx.between?(0, 1)
-          Piece.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 1
+          Pawn.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 6
+          Pawn.new(self, [row_idx, col_idx], :white)
+        elsif row_idx == 0 && (col_idx == 1 || col_idx == 6)
+          Knight.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 7 && (col_idx == 1 || col_idx == 6)
+          Knight.new(self, [row_idx, col_idx], :white)
+        elsif row_idx == 0 && (col_idx == 0 || col_idx == 7)
+          Rook.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 7 && (col_idx == 0 || col_idx == 7)
+          Rook.new(self, [row_idx, col_idx], :white)
+        elsif row_idx == 0 && (col_idx == 2 || col_idx == 5)
+          Bishop.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 7 && (col_idx == 2 || col_idx == 5)
+          Bishop.new(self, [row_idx, col_idx], :white)
+        elsif row_idx == 0 && col_idx == 3
+          Queen.new(self, [row_idx, col_idx], :black)
+        elsif row_idx == 7 && col_idx == 3
+          Queen.new(self, [row_idx, col_idx], :white)
+        elsif row_idx == 0 && col_idx == 4
+          King.new(self, [row_idx, col_idx], :black)
         else
-          Piece.new(self, [row_idx, col_idx], :white)
+          King.new(self, [row_idx, col_idx], :white)
         end
       end
     end

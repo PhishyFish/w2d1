@@ -9,9 +9,25 @@ class Display
     @cursor = Cursor.new([0, 0], @board)
   end
 
-  def move(new_pos)
+  def move(new_pos = 1)
+    self.render
     loop do
       @cursor.get_input
+
+      selected = false
+      while !selected
+        if @cursor.get_input
+          selected = @board[@cursor.cursor_pos]
+        end
+      end
+
+      while selected
+        if @board[@cursor.cursor_pos].valid_moves.include?(@cursor.get_input)
+          @board[@cursor.get_input] = selected
+          selected = false
+        end
+      end
+
       system("clear")
       self.render
     end
@@ -27,7 +43,7 @@ class Display
         elsif (col_idx.odd? && row_idx.odd?) || (col_idx.even? && row_idx.even?)
           print current_piece.colorize( :background => :light_white )
         else
-          print current_piece.colorize( :background => :black )
+          print current_piece.colorize( :background => :light_black )
         end
       end
       print "\n"
